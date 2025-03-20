@@ -1,10 +1,16 @@
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env
+load_dotenv()
 
 app = Flask(__name__)
 
-# MongoDB Connection
-client = MongoClient("mongodb+srv://jaysingh:jaysingh@cluster0.i9nqg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+# Get MongoDB URI from environment variables
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
 db = client["taskmanager"]
 tasks_collection = db["tasks"]
 
